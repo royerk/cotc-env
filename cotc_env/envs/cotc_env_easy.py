@@ -2,7 +2,7 @@ import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
 
-from cotc_env.envs.StateSolo import StateSolo
+from cotc_env.envs.state_solo import StateSolo
 
 
 class CotcEnvEasySolo(gym.Env):
