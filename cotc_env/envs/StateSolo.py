@@ -16,6 +16,7 @@ MINE_VALUE = 1
 EMPTY_VALUE = 0
 SHIP_VALUE = 2
 
+
 class StateSolo:
 
     def __init__(self):
