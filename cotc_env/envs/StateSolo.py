@@ -25,3 +25,9 @@ class StateSolo:
         self._place_rum()
         self._place_mine()
 
+    def __set_map_value(self, cell, value):
+        self.map[cell.x][cell.y] = value
+
+    def _place_ship(self):
+        for cell in self.ship.getCells():
+            self._set_map_value(cell, SHIP_VALUE)
