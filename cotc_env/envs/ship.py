@@ -14,3 +14,6 @@ class Ship:
             self.center = Cell(randint(1, X_MAX - 2), randint(1, Y_MAX - 2))
         self.bow = self.center.get_front_cell(self.cap)
         self.prow = self.center.get_front_cell(get_opposite_cap(self.cap))
+
+    def get_cells(self):
+        return [self.bow, self.center, self.prow]
