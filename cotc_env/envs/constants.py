@@ -9,11 +9,11 @@ RUM_MIN = 10
 RUM_MAX = 20
 
 # map
-X_MAX = 10
-Y_MAX = 10
+MAP_WIDTH = 23
+MAP_HEIGHT = 21
 RUM_VALUE = -1
-MINE_VALUE = 1
 EMPTY_VALUE = 0
+MINE_VALUE = 1
 SHIP_VALUE = 2
 
 oddr_directions = [

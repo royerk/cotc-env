@@ -1,3 +1,4 @@
+from random import randint
 from cotc_env.envs.ship import Ship
 from cotc_env.envs.constants import *
 
@@ -5,15 +6,54 @@ from cotc_env.envs.constants import *
 class StateSolo:
 
     def __init__(self):
-        self.map = [[EMPTY_VALUE] * X_MAX] * Y_MAX
+        self.map = [[EMPTY_VALUE] * MAP_WIDTH] * MAP_HEIGHT
         self.ship = Ship()
         self._place_ship()
-        self._place_rum()
-        self._place_mine()
+        self._place_mines()
+        self._place_rums()
 
-    def __set_map_value(self, cell, value):
+    def _set_map_value(self, cell, value):
         self.map[cell.x][cell.y] = value
 
     def _place_ship(self):
-        for cell in self.ship.getCells():
+        for cell in self.ship.get_cells():
             self._set_map_value(cell, SHIP_VALUE)
+
+    def _place_mines(self):
+        self.mines = set()
+        self.initial_mine_count = randint(MIN_MINE, MAX_MINES)
+        while len(self.mines) < self.initial_mine_count:
+            x = 1 + randint(MAP_WIDTH - 2)
+            y = 1 + randint(MAP_HEIGHT / 2)
+
+            if self._is_free_of_ship(x, y) \
+                    and self._is_free_of_mine(x, y):
+                if y != MAP_HEIGHT - 1 - y:
+                    self.mines.add((x, MAP_HEIGHT - 1 - y))
+                self.mines.add((x, y))
+
+    def _place_rums(self):
+        self.rums = {}
+        self.initial_rum_count = randint(MIN_RUMS, MAX_RUMS)
+        while len(self.rums) < self.initial_rum_count:
+            x = 1 + randint(MAP_WIDTH - 2)
+            y = 1 + randint(MAP_HEIGHT / 2)
+
+            if self._is_free_of_ship(x, y) \
+                    and self._is_free_of_mine(x, y)\
+                    and self._is_free_of_rum(x, y):
+                if y != MAP_HEIGHT - 1 - y:
+                    self.rums[(x, MAP_HEIGHT - 1 - y)] = RUM_MAX
+                self.rums[(x, y)] = RUM_MAX
+
+    def _is_free_of_ship(self, x, y):
+        for cell in self.ship.get_cells():
+            if cell.q == x and cell.r == y:
+                return False
+        return True
+
+    def _is_free_of_mine(self, x, y):
+        return (x, y) not in self.mines
+
+    def _is_free_of_rum(self, x, y):
+        return (x, y) not in self.rums
