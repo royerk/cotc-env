@@ -15,3 +15,13 @@ RUM_VALUE = -1
 MINE_VALUE = 1
 EMPTY_VALUE = 0
 SHIP_VALUE = 2
+
+oddr_directions = [
+    [[+1,  0], [ 0, -1], [-1, -1],
+     [-1,  0], [-1, +1], [ 0, +1]],
+    [[+1,  0], [+1, -1], [ 0, -1],
+     [-1,  0], [ 0, +1], [+1, +1]],
+]
+
+# ship
+SHIP_MAX_RUM = 100
