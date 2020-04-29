@@ -6,11 +6,11 @@ from cotc_env.envs.constants import *
 class StateSolo:
 
     def __init__(self):
-        self.map = [[EMPTY_VALUE] * MAP_WIDTH] * MAP_HEIGHT
         self.ship = Ship()
         self._place_ship()
         self._place_mines()
         self._place_rums()
+        self._update_map()
 
     def _set_map_value(self, cell, value):
         self.map[cell.x][cell.y] = value
@@ -57,3 +57,25 @@ class StateSolo:
 
     def _is_free_of_rum(self, x, y):
         return (x, y) not in self.rums
+
+    def get_observation(self):
+        return (
+            self.ship.rum,
+            self.ship.center.q,
+            self.ship.center.r,
+            self.ship.cap,
+            self.ship.speed,
+            self.map
+        )
+
+    def _update_map(self):
+        self.map = [[EMPTY_VALUE] * MAP_WIDTH] * MAP_HEIGHT
+
+        for x, y in self.mines:
+            self.map[x][y] = MINE_VALUE
+
+        for x, y in self.rums:
+            self.map[x][y] = RUM_VALUE
+
+        for cell in self.ship.get_cells():
+            self.map[cell.q][cell.r] = SHIP_VALUE
