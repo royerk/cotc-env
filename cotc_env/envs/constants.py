@@ -25,3 +25,4 @@ oddr_directions = [
 
 # ship
 SHIP_MAX_RUM = 100
+MAX_SPEED = 2

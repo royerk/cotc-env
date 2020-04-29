@@ -14,6 +14,7 @@ class Ship:
             self.center = Cell(randint(1, MAP_WIDTH - 2), randint(1, MAP_HEIGHT - 2))
         self.bow = self.center.get_front_cell(self.cap)
         self.prow = self.center.get_front_cell(get_opposite_cap(self.cap))
+        self.speed = 0
 
     def get_cells(self):
         return [self.bow, self.center, self.prow]
