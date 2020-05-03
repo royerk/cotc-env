@@ -1,3 +1,6 @@
+# game
+MAX_TURN = 100
+
 # items on map
 MIN_MINES = 2
 MAX_MINES = 10
@@ -5,7 +8,7 @@ MIN_RUMS = 2
 MAX_RUMS = 10
 
 # rum barrels content
-RUM_MIN = 10
+RUM_MIN = 20
 RUM_MAX = 20
 
 MINE_DMG = 20
