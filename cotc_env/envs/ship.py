@@ -24,3 +24,25 @@ class Ship:
             self.speed = max(MIN_SPEED, self.speed - 1)
         if action == FASTER:
             self.speed = min(MAX_SPEED, self.speed + 1)
+
+    def stop(self):
+        self.speed = 0
+
+    def decrease_rum(self, amount):
+        self.rum = max(0, self.rum - amount)
+
+    def increase_rum(self, amount):
+        self.rum = min(SHIP_MAX_RUM, self.rum + amount)
+
+    def move_forward(self):
+        self.bow = self.center
+        self.center = self.prow
+        self.prow = self.prow.get_front_cell(self.cap)
+
+    def turn(self, action):
+        if action == PORT:
+            self.bow.get_port_cell(self.cap)
+            self.prow.get_port_cell(get_opposite_cap(self.cap))
+        else:
+            self.bow.get_star_cell(self.cap)
+            self.prow.get_star_cell(get_opposite_cap(self.cap))
