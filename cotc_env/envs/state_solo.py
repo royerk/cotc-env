@@ -59,14 +59,15 @@ class StateSolo:
         return (x, y) not in self.rums
 
     def get_observation(self):
-        return (
-            self.ship.rum,
-            self.ship.center.q,
-            self.ship.center.r,
-            self.ship.cap,
-            self.ship.speed,
-            self.map
-        )
+        return {
+            'self': {
+                'rum': self.ship.rum,
+                'x': self.ship.center.q,
+                'y': self.ship.center.r,
+                'cap': self.ship.cap,
+                'speed': self.ship.speed},
+            'map': self.map
+        }
 
     def _update_map(self):
         self.map = [[EMPTY_VALUE] * MAP_WIDTH] * MAP_HEIGHT
