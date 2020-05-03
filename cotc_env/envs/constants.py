@@ -1,5 +1,5 @@
 # items on map
-MIN_MINE = 2
+MIN_MINES = 2
 MAX_MINES = 10
 MIN_RUMS = 2
 MAX_RUMS = 10
@@ -7,6 +7,8 @@ MAX_RUMS = 10
 # rum barrels content
 RUM_MIN = 10
 RUM_MAX = 20
+
+MINE_DMG = 20
 
 # map
 MAP_WIDTH = 23
@@ -27,6 +29,7 @@ oddr_directions = [
 SHIP_MAX_RUM = 100
 MAX_SPEED = 2
 MIN_SPEED = 0
+RUM_TURN = 1  # amount of rum lost per turn
 
 # Env
 WAIT = 0
