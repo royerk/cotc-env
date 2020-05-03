@@ -26,6 +26,12 @@ oddr_directions = [
 # ship
 SHIP_MAX_RUM = 100
 MAX_SPEED = 2
+MIN_SPEED = 0
 
 # Env
+WAIT = 0
+SLOWER = 1
+FASTER = 2
+PORT = 3
+STAR = 4
 NUMBER_ACTIONS = 5

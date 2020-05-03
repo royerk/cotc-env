@@ -18,3 +18,9 @@ class Ship:
 
     def get_cells(self):
         return [self.bow, self.center, self.prow]
+
+    def apply_action(self, action):
+        if action == SLOWER:
+            self.speed = max(MIN_SPEED, self.speed - 1)
+        if action == FASTER:
+            self.speed = min(MAX_SPEED, self.speed + 1)
