@@ -7,6 +7,12 @@ class Cell:
         self.q = x
         self.r = y
 
+    def __eq__(self, other):
+        return self.q == other.q and self.r == other.r
+
+    def to_string(self):
+        return "cell, x: {} y: {}".format(self.q, self.r)
+
     def get_front_cell(self, cap):
         dq, dr = oddr_directions[self.r % 2][cap]
         return Cell(self.q + dq, self.r + dr)

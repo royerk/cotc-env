@@ -9,15 +9,20 @@ class Ship:
 
     def __init__(self, cell=None, cap=None):
         self.rum = SHIP_MAX_RUM
-        if cell is None and cap is None:
+        if bool(cell) ^ (cap is not None):
+            raise ValueError("Ship init need neither or both cell and cap.")
+        elif cell is None and cap is None:
             self.cap = randint(0, 5)
             self.center = Cell(randint(1, MAP_WIDTH - 2), randint(1, MAP_HEIGHT - 2))
-        self.bow = self.center.get_front_cell(self.cap)
-        self.prow = self.center.get_front_cell(get_opposite_cap(self.cap))
+        else:
+            self.center = cell
+            self.cap = cap
+        self.prow = self.center.get_front_cell(self.cap)
+        self.stern = self.center.get_front_cell(get_opposite_cap(self.cap))
         self.speed = 0
 
     def get_cells(self):
-        return [self.bow, self.center, self.prow]
+        return [self.prow, self.center, self.stern]
 
     def apply_action(self, action):
         if action == SLOWER:
@@ -35,14 +40,14 @@ class Ship:
         self.rum = min(SHIP_MAX_RUM, self.rum + amount)
 
     def move_forward(self):
-        self.bow = self.center
+        self.stern = self.center
         self.center = self.prow
         self.prow = self.prow.get_front_cell(self.cap)
 
     def turn(self, action):
         if action == PORT:
-            self.bow.get_port_cell(self.cap)
-            self.prow.get_port_cell(get_opposite_cap(self.cap))
+            self.prow.get_port_cell(self.cap)
+            self.stern.get_port_cell(get_opposite_cap(self.cap))
         else:
-            self.bow.get_star_cell(self.cap)
-            self.prow.get_star_cell(get_opposite_cap(self.cap))
+            self.prow.get_star_cell(self.cap)
+            self.stern.get_star_cell(get_opposite_cap(self.cap))

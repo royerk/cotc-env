@@ -121,7 +121,7 @@ class StateSolo:
                 self.mines.discard(pair)
 
     def forward_collision(self):
-        front_cell = self.ship.prow.get_front_cell(self.ship.cap)
+        front_cell = self.ship.stern.get_front_cell(self.ship.cap)
         return front_cell.is_in_map()
 
     def turn_collision(self):
