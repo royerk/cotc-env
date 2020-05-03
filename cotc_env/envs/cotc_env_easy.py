@@ -23,7 +23,11 @@ class CotcEnvEasySolo(gym.Env):
         })
 
     def step(self, action):
-        pass
+        self.state.apply_action(action)
+        return self.state.get_observation(), \
+               self.state.get_reward(), \
+               self.state.is_done(), \
+               {}
 
     def reset(self):
         self.state = StateSolo()
