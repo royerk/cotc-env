@@ -11,6 +11,7 @@ class StateSolo:
         self._place_mines()
         self._place_rums()
         self._update_map()
+        self.turn = 0
 
     def _set_map_value(self, cell, value):
         self.map[cell.x][cell.y] = value
@@ -21,7 +22,7 @@ class StateSolo:
 
     def _place_mines(self):
         self.mines = set()
-        self.initial_mine_count = randint(MIN_MINE, MAX_MINES)
+        self.initial_mine_count = randint(MIN_MINES, MAX_MINES)
         while len(self.mines) < self.initial_mine_count:
             x = 1 + randint(MAP_WIDTH - 2)
             y = 1 + randint(MAP_HEIGHT / 2)
@@ -80,3 +81,51 @@ class StateSolo:
 
         for cell in self.ship.get_cells():
             self.map[cell.q][cell.r] = SHIP_VALUE
+
+    def apply_action(self, action):
+        if action in [SLOWER, FASTER]:
+            self.ship.apply_action(action)
+
+        if self.ship.speed == 1:
+            if not self.forward_collision():
+                self.ship.move_forward()
+                self.collect()
+            else:
+                self.ship.stop()
+
+        if self.ship.speed == 2:
+            if not self.forward_collision():
+                self.ship.move_forward()
+                self.collect()
+            else:
+                self.ship.stop()
+
+        if action in [PORT, STAR]:
+            if self.turn_collision(action):
+                self.ship.stop()
+            else:
+                self.ship.turn(action)
+                self.collect()
+
+        self.ship.decrease_rum(RUM_TURN)
+        self.turn += 1
+
+    def collect(self):
+        for cell in self.ship.get_cells():
+            pair = (cell.q, cell.y)
+            if pair in self.rums:
+                self.ship.increase_rum(RUM_MAX)
+                self.rums.pop(pair, None)
+            if pair in self.mines:
+                self.ship.decrease_rum(MINE_DMG)
+                self.mines.discard(pair)
+
+    def forward_collision(self):
+        front_cell = self.ship.prow.get_front_cell(self.ship.cap)
+        return front_cell.is_in_map()
+
+    def turn_collision(self):
+        return False  # can always pivot when against the sides
+
+    def is_done(self):
+        return self.turn == MAX_TURN or self.ship.rum == 0
