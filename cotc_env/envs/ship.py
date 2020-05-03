@@ -31,7 +31,7 @@ class Ship:
             self.speed = min(MAX_SPEED, self.speed + 1)
 
     def stop(self):
-        self.speed = 0
+        self.speed = MIN_SPEED
 
     def decrease_rum(self, amount):
         self.rum = max(0, self.rum - amount)
@@ -44,10 +44,22 @@ class Ship:
         self.center = self.prow
         self.prow = self.prow.get_front_cell(self.cap)
 
+    def _increase_cap(self):
+        """Port"""
+        self.cap = (self.cap + 1) % 6
+
+    def _decrease_cap(self):
+        """Star"""
+        self.cap = (self.cap - 1) % 6
+
     def turn(self, action):
         if action == PORT:
-            self.prow.get_port_cell(self.cap)
-            self.stern.get_port_cell(get_opposite_cap(self.cap))
+            self.prow = self.prow.get_port_cell(self.cap)
+            self.stern = self.stern.get_port_cell(get_opposite_cap(self.cap))
+            self._increase_cap()
+        elif action == STAR:
+            self.prow = self.prow.get_star_cell(self.cap)
+            self.stern = self.stern.get_star_cell(get_opposite_cap(self.cap))
+            self._decrease_cap()
         else:
-            self.prow.get_star_cell(self.cap)
-            self.stern.get_star_cell(get_opposite_cap(self.cap))
+            raise ValueError("You can't turn with: {}".format(action))
