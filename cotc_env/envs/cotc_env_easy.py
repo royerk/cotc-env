@@ -11,14 +11,16 @@ class CotcEnvEasySolo(gym.Env):
     def __init__(self):
         self.state = None
         self.action_space = spaces.Discrete(NUMBER_ACTIONS)
-        self.observation_space = spaces.Tuple((
-            spaces.Discrete(SHIP_MAX_RUM + 1),
-            spaces.Discrete(MAP_WIDTH),
-            spaces.Discrete(MAP_HEIGHT),
-            spaces.Discrete(5),
-            spaces.Discrete(3),
-            spaces.Box(-1, 2, shape=(MAP_WIDTH, MAP_HEIGHT), dtype=int)
-        ))
+        self.observation_space = spaces.Dict({
+            'self': spaces.Dict({
+                'rum': spaces.Discrete(SHIP_MAX_RUM + 1),
+                'x': spaces.Discrete(MAP_WIDTH),
+                'y': spaces.Discrete(MAP_HEIGHT),
+                'cap': spaces.Discrete(5),
+                'speed': spaces.Discrete(3)
+            }),
+            'map': spaces.Box(-1, 2, shape=(MAP_WIDTH, MAP_HEIGHT), dtype=int)
+        })
 
     def step(self, action):
         pass
