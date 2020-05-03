@@ -129,3 +129,10 @@ class StateSolo:
 
     def is_done(self):
         return self.turn == MAX_TURN or self.ship.rum == 0
+
+    def get_reward(self):
+        if self.turn == MAX_TURN and self.ship.rum > 0:
+            return 100 + self.ship.rum
+        elif self.ship.rum == 0:
+            return -100
+        return 1
