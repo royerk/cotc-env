@@ -8,6 +8,7 @@ from cotc_env.envs.utils import get_opposite_cap
 class Ship:
 
     def __init__(self, cell=None, cap=None):
+        self.previous_rum = SHIP_MAX_RUM
         self.rum = SHIP_MAX_RUM
         if bool(cell) ^ (cap is not None):
             raise ValueError("Ship init need neither or both cell and cap.")
@@ -20,6 +21,9 @@ class Ship:
         self.prow = self.center.get_front_cell(self.cap)
         self.stern = self.center.get_front_cell(get_opposite_cap(self.cap))
         self.speed = 0
+
+    def save_rum(self):
+        self.previous_rum = self.rum
 
     def get_cells(self):
         return [self.prow, self.center, self.stern]

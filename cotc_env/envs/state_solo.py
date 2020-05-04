@@ -95,6 +95,7 @@ class StateSolo:
             self.map[cell.q][cell.r] = SHIP_VALUE
 
     def apply_action(self, action):
+        self.ship.save_rum()
         if action in [SLOWER, FASTER]:
             self.ship.apply_action(action)
 
@@ -148,7 +149,12 @@ class StateSolo:
             return 100 + self.ship.rum
         elif self.ship.rum == 0:
             return -100
-        return 1
+        elif self.ship.rum - self.ship.previous_rum == -1:
+            return 0
+        elif  self.ship.rum - self.ship.previous_rum < -1:
+            return -1
+        else:
+            return 1
 
     def show(self):
         for y in range(MAP_HEIGHT):
