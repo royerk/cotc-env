@@ -8,8 +8,7 @@ from cotc_env.envs.constants import *
 
 class CotcEnvEasySolo(gym.Env):
 
-    def __init__(self, seed=42):
-        self.seed = seed
+    def __init__(self):
         self.state = None
         self.action_space = spaces.Discrete(NUMBER_ACTIONS)
         self.observation_space = spaces.Dict({
@@ -28,13 +27,10 @@ class CotcEnvEasySolo(gym.Env):
         return self.state.get_observation(), \
                self.state.get_reward(), \
                self.state.is_done(), \
-               {}
+               self.state.get_info()
 
     def reset(self):
-        seed = self.seed
-        if seed is None:
-            seed = time.now()
-        self.state = StateSolo(seed)
+        self.state = StateSolo()
         return self.state.get_observation()
 
     def render(self, mode='human'):
