@@ -1,4 +1,4 @@
-import time
+import datetime
 import random
 from random import randint
 from cotc_env.envs.ship import Ship
@@ -15,7 +15,7 @@ class StateSolo:
         self._place_rums()
         self._update_map()
         self.turn = 0
-        self.seed = time.now()
+        self.seed = datetime.datetime.now()
         random.seed(self.seed)
 
     def _set_map_value(self, cell, value):
@@ -29,8 +29,8 @@ class StateSolo:
         self.mines = set()
         self.initial_mine_count = randint(MIN_MINES, MAX_MINES)
         while len(self.mines) < self.initial_mine_count:
-            x = 1 + randint(MAP_WIDTH - 2)
-            y = 1 + randint(MAP_HEIGHT / 2)
+            x = randint(1, MAP_WIDTH - 2)
+            y = randint(1, int(MAP_HEIGHT / 2))
 
             if self._is_free_of_ship(x, y) \
                     and self._is_free_of_mine(x, y):
@@ -42,8 +42,8 @@ class StateSolo:
         self.rums = {}
         self.initial_rum_count = randint(MIN_RUMS, MAX_RUMS)
         while len(self.rums) < self.initial_rum_count:
-            x = 1 + randint(MAP_WIDTH - 2)
-            y = 1 + randint(MAP_HEIGHT / 2)
+            x = randint(1, MAP_WIDTH - 2)
+            y = randint(1, int(MAP_HEIGHT / 2))
 
             if self._is_free_of_ship(x, y) \
                     and self._is_free_of_mine(x, y)\
