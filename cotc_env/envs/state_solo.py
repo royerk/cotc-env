@@ -9,7 +9,7 @@ class StateSolo:
 
     def __init__(self):
         self.ship = Ship()
-        self.map = [[EMPTY_VALUE] * MAP_WIDTH] * MAP_HEIGHT
+        self.map = [[EMPTY_VALUE] * MAP_HEIGHT] * MAP_WIDTH
         self._place_ship()
         self._place_mines()
         self._place_rums()
@@ -19,7 +19,7 @@ class StateSolo:
         random.seed(self.seed)
 
     def _set_map_value(self, cell, value):
-        self.map[cell.x][cell.y] = value
+        self.map[cell.q][cell.r] = value
 
     def _place_ship(self):
         for cell in self.ship.get_cells():
