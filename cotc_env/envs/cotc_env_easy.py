@@ -9,7 +9,7 @@ from cotc_env.envs.constants import *
 class CotcEnvEasySolo(gym.Env):
 
     def __init__(self):
-        self.state = None
+        self.state = StateSolo()
         self.action_space = spaces.Discrete(NUMBER_ACTIONS)
         self.observation_space = spaces.Dict({
             'self': spaces.Dict({
