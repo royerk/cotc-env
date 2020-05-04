@@ -124,7 +124,7 @@ class StateSolo:
 
     def collect(self):
         for cell in self.ship.get_cells():
-            pair = (cell.q, cell.y)
+            pair = (cell.q, cell.r)
             if pair in self.rums:
                 self.ship.increase_rum(RUM_MAX)
                 self.rums.pop(pair, None)
