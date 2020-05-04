@@ -143,10 +143,10 @@ class StateSolo:
         return 1
 
     def show(self):
-        for y in MAP_HEIGHT:
+        for y in range(MAP_HEIGHT):
             if y % 2 == 1:
                 print(' ', end='')
-            for x in MAP_WIDTH:
+            for x in range(MAP_WIDTH):
                 print(self.map[x][y], end='')
             print()
 
