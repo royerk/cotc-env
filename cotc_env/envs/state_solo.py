@@ -19,7 +19,11 @@ class StateSolo:
         random.seed(self.seed)
 
     def _reset_map(self):
-        self.map = [[EMPTY_VALUE] * MAP_HEIGHT] * MAP_WIDTH
+        self.map = []  # [[EMPTY_VALUE] * MAP_HEIGHT] * MAP_WIDTH
+        for x in range(MAP_WIDTH):
+            self.map.append([])
+            for y in range(MAP_HEIGHT):
+                self.map[-1].append(EMPTY_VALUE)
 
     def _set_map_value(self, cell, value):
         self.map[cell.q][cell.r] = value
@@ -147,11 +151,19 @@ class StateSolo:
 
     def show(self):
         for y in range(MAP_HEIGHT):
+            s = ''
             if y % 2 == 1:
-                print(' ', end='')
+                s += ' '
             for x in range(MAP_WIDTH):
-                print(self.map[x][y], end='')
-            print()
+                if self.map[x][y] == EMPTY_VALUE:
+                    s += '. '
+                elif self.map[x][y] == RUM_VALUE:
+                    s += 'r '
+                elif self.map[x][y] == MINE_VALUE:
+                    s += 'm '
+                else:
+                    s += 'b '
+            print(s)
 
     def get_info(self):
         return {
