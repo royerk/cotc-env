@@ -139,3 +139,11 @@ class StateSolo:
         elif self.ship.rum == 0:
             return -100
         return 1
+
+    def show(self):
+        for y in MAP_HEIGHT:
+            if y % 2 == 1:
+                print(' ', end='')
+            for x in MAP_WIDTH:
+                print(self.map[x][y], end='')
+            print()

@@ -10,8 +10,6 @@ class CotcEnvEasySolo(gym.Env):
 
     def __init__(self, seed=42):
         self.seed = seed
-        if not seed:
-            self.seed = time.now()
         self.state = None
         self.action_space = spaces.Discrete(NUMBER_ACTIONS)
         self.observation_space = spaces.Dict({
@@ -33,11 +31,14 @@ class CotcEnvEasySolo(gym.Env):
                {}
 
     def reset(self):
-        self.state = StateSolo(self.seed)
+        seed = self.seed
+        if seed is None:
+            seed = time.now()
+        self.state = StateSolo(seed)
         return self.state.get_observation()
 
     def render(self, mode='human'):
-        pass
+        self.state.show()
 
     def close(self):
         pass
