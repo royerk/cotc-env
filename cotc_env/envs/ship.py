@@ -27,8 +27,10 @@ class Ship:
     def apply_action(self, action):
         if action == SLOWER:
             self.speed = max(MIN_SPEED, self.speed - 1)
-        if action == FASTER:
+        elif action == FASTER:
             self.speed = min(MAX_SPEED, self.speed + 1)
+        else:
+            raise ValueError('Order {} not related to speed'.format(action))
 
     def stop(self):
         self.speed = MIN_SPEED

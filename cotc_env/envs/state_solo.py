@@ -121,6 +121,7 @@ class StateSolo:
 
         self.ship.decrease_rum(RUM_TURN)
         self.turn += 1
+        self._update_map()
 
     def collect(self):
         for cell in self.ship.get_cells():
@@ -134,7 +135,7 @@ class StateSolo:
 
     def forward_collision(self):
         front_cell = self.ship.stern.get_front_cell(self.ship.cap)
-        return front_cell.is_in_map()
+        return not front_cell.is_in_map()
 
     def turn_collision(self, action):
         return False  # can always pivot when against the sides
