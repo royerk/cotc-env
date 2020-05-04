@@ -19,7 +19,7 @@ class CotcEnvEasySolo(gym.Env):
                 'cap': spaces.Discrete(5),
                 'speed': spaces.Discrete(3)
             }),
-            'map': spaces.Box(-1, 2, shape=(MAP_WIDTH, MAP_HEIGHT), dtype=int)
+            'map': spaces.Box(-1, 2, shape=(MAP_HEIGHT, MAP_WIDTH), dtype=int)
         })
 
     def step(self, action):

@@ -9,6 +9,7 @@ class StateSolo:
 
     def __init__(self):
         self.ship = Ship()
+        self.map = [[EMPTY_VALUE] * MAP_WIDTH] * MAP_HEIGHT
         self._place_ship()
         self._place_mines()
         self._place_rums()
@@ -128,7 +129,7 @@ class StateSolo:
         front_cell = self.ship.stern.get_front_cell(self.ship.cap)
         return front_cell.is_in_map()
 
-    def turn_collision(self):
+    def turn_collision(self, action):
         return False  # can always pivot when against the sides
 
     def is_done(self):
