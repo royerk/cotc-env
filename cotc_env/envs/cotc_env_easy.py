@@ -1,6 +1,6 @@
 import gym
-from gym import error, spaces, utils
-from gym.utils import seeding
+import time
+from gym import spaces
 
 from cotc_env.envs.state_solo import StateSolo
 from cotc_env.envs.constants import *
@@ -8,7 +8,10 @@ from cotc_env.envs.constants import *
 
 class CotcEnvEasySolo(gym.Env):
 
-    def __init__(self):
+    def __init__(self, seed=42):
+        self.seed = seed
+        if not seed:
+            self.seed = time.now()
         self.state = None
         self.action_space = spaces.Discrete(NUMBER_ACTIONS)
         self.observation_space = spaces.Dict({
@@ -30,7 +33,7 @@ class CotcEnvEasySolo(gym.Env):
                {}
 
     def reset(self):
-        self.state = StateSolo()
+        self.state = StateSolo(self.seed)
         return self.state.get_observation()
 
     def render(self, mode='human'):

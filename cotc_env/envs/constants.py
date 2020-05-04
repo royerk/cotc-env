@@ -29,7 +29,7 @@ oddr_directions = [
 ]
 
 # ship
-SHIP_MAX_RUM = 100
+SHIP_MAX_RUM = 50
 MAX_SPEED = 2
 MIN_SPEED = 0
 RUM_TURN = 1  # amount of rum lost per turn

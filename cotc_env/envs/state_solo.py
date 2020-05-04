@@ -1,3 +1,4 @@
+import random
 from random import randint
 from cotc_env.envs.ship import Ship
 from cotc_env.envs.constants import *
@@ -5,13 +6,15 @@ from cotc_env.envs.constants import *
 
 class StateSolo:
 
-    def __init__(self):
+    def __init__(self, seed):
         self.ship = Ship()
         self._place_ship()
         self._place_mines()
         self._place_rums()
         self._update_map()
         self.turn = 0
+        self.seed = seed
+        random.seed(self.seed)
 
     def _set_map_value(self, cell, value):
         self.map[cell.x][cell.y] = value
