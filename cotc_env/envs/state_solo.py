@@ -8,15 +8,20 @@ from cotc_env.envs.constants import *
 class StateSolo:
 
     def __init__(self):
-        self.ship = Ship()
-        self._reset_map()
-        self._place_ship()
-        self._place_mines()
-        self._place_rums()
-        self._update_map()
-        self.turn = 0
         self.seed = datetime.datetime.now()
         random.seed(self.seed)
+
+        self._reset_map()
+
+        self.ship = Ship()
+        self._place_ship()
+
+        self._generate_initial_mines()
+        self._generate_initial_rums()
+
+        self._update_map()
+
+        self.turn = 0
 
     def _reset_map(self):
         """Map first index is x, second is y."""
@@ -26,16 +31,20 @@ class StateSolo:
             for y in range(MAP_HEIGHT):
                 self.map[-1].append(EMPTY_VALUE)
 
-    def _set_map_value(self, cell, value):
+    def _set_map_value_cell(self, cell, value):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
-        if value != SHIP_VALUE or (value == SHIP_VALUE and cell.is_in_map()):
-            self.map[cell.q][cell.r] = value
+        if value != SHIP_VALUE and not cell.is_in_map():
+            raise ValueError("Trying to add an out of map cell to the map:", cell.q, cell.r)
+        self._set_map_value(cell.q, cell.r, value)
+
+    def _set_map_value(self, x, y, value):
+        self.map[x][y] = value
 
     def _place_ship(self):
         for cell in self.ship.get_cells():
-            self._set_map_value(cell, SHIP_VALUE)
+            self._set_map_value_cell(cell, SHIP_VALUE)
 
-    def _place_mines(self):
+    def _generate_initial_mines(self):
         self.mines = set()
         self.initial_mine_count = randint(MIN_MINES, MAX_MINES)
         while len(self.mines) < self.initial_mine_count:
@@ -48,7 +57,7 @@ class StateSolo:
                     self.mines.add((x, MAP_HEIGHT - 1 - y))
                 self.mines.add((x, y))
 
-    def _place_rums(self):
+    def _generate_initial_rums(self):
         self.rums = {}
         self.initial_rum_count = randint(MIN_RUMS, MAX_RUMS)
         while len(self.rums) < self.initial_rum_count:
@@ -89,13 +98,12 @@ class StateSolo:
         self._reset_map()
 
         for x, y in self.mines:
-            self.map[x][y] = MINE_VALUE
+            self._set_map_value(x, y, MINE_VALUE)
 
         for x, y in self.rums:
-            self.map[x][y] = RUM_VALUE
+            self._set_map_value(x, y, RUM_VALUE)
 
-        for cell in self.ship.get_cells():
-            self.map[cell.q][cell.r] = SHIP_VALUE
+        self._place_ship()
 
     def apply_action(self, action):
         self.ship.save_rum()
