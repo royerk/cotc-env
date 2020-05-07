@@ -33,8 +33,11 @@ class StateSolo:
 
     def _set_map_value_cell(self, cell, value):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
-        if value != SHIP_VALUE and not cell.is_in_map():
-            raise ValueError("Trying to add an out of map cell to the map:", cell.q, cell.r)
+        if not cell.is_in_map():
+            if value == SHIP_VALUE:
+                self._set_map_value(cell.q, cell.r, value)
+            else:
+                raise ValueError("Trying to add an out of map cell to the map:", cell.q, cell.r, value)
         self._set_map_value(cell.q, cell.r, value)
 
     def _set_map_value(self, x, y, value):
