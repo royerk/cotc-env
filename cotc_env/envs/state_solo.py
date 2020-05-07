@@ -107,7 +107,8 @@ class StateSolo:
         for x, y in self.rums:
             self._set_map_value(x, y, RUM_VALUE)
 
-        self._place_ship()
+        if self.ship.is_alive():
+            self._place_ship()
 
     def apply_action(self, action):
         self.ship.save_rum()
@@ -150,8 +151,8 @@ class StateSolo:
                 self.mines.discard(pair)
 
     def forward_collision(self):
-        front_cell = self.ship.stern.get_front_cell(self.ship.cap)
-        return not front_cell.is_in_map()
+        """Collision with map is same as prow already out."""
+        return not self.ship.prow.is_in_map()
 
     def turn_collision(self, action):
         return False  # can always pivot when against the sides

@@ -78,3 +78,6 @@ class Ship:
             self._decrease_cap()
         else:
             raise ValueError("You can't turn with: {}".format(action))
+
+    def is_alive(self):
+        return self.rum > 0
