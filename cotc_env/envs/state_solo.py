@@ -19,7 +19,8 @@ class StateSolo:
         random.seed(self.seed)
 
     def _reset_map(self):
-        self.map = []  # [[EMPTY_VALUE] * MAP_HEIGHT] * MAP_WIDTH
+        """Map first index is x, second is y."""
+        self.map = []
         for x in range(MAP_WIDTH):
             self.map.append([])
             for y in range(MAP_HEIGHT):
