@@ -171,6 +171,7 @@ class StateSolo:
             return 1
 
     def show(self):
+        print(self.ship.to_string())
         for y in range(MAP_HEIGHT):
             s = ''
             if y % 2 == 1:
@@ -185,6 +186,7 @@ class StateSolo:
                 else:
                     s += 'b '
             print(s)
+        print()
 
     def get_info(self):
         return {

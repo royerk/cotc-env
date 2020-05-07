@@ -23,11 +23,12 @@ class Ship:
         self.speed = 0
 
     def to_string(self):
-        return "Ship, x: {x}, y: {y}, speed: {speed}, cap: {cap}".format(
+        return "Ship, x: {x}, y: {y}, speed: {speed}, cap: {cap}, rum:{rum}".format(
             x=self.center.q,
             y=self.center.r,
             speed=self.speed,
-            cap=self.cap
+            cap=self.cap,
+            rum=self.rums
         )
 
     def save_rum(self):
