@@ -28,7 +28,7 @@ class Ship:
             y=self.center.r,
             speed=self.speed,
             cap=self.cap,
-            rum=self.rums
+            rum=self.rum
         )
 
     def save_rum(self):
