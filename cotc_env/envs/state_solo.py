@@ -26,7 +26,9 @@ class StateSolo:
                 self.map[-1].append(EMPTY_VALUE)
 
     def _set_map_value(self, cell, value):
-        self.map[cell.q][cell.r] = value
+        """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
+        if value != SHIP_VALUE or (value == SHIP_VALUE and cell.is_in_map()):
+            self.map[cell.q][cell.r] = value
 
     def _place_ship(self):
         for cell in self.ship.get_cells():
