@@ -22,6 +22,14 @@ class Ship:
         self.stern = self.center.get_front_cell(get_opposite_cap(self.cap))
         self.speed = 0
 
+    def to_string(self):
+        return "Ship, x: {x}, y: {y}, speed: {speed}, cap: {cap}".format(
+            x=self.center.q,
+            y=self.center.r,
+            speed=self.speed,
+            cap=self.cap
+        )
+
     def save_rum(self):
         self.previous_rum = self.rum
 
