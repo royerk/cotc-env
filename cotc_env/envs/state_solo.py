@@ -167,7 +167,7 @@ class StateSolo:
             return -100
         elif self.ship.rum - self.ship.previous_rum == -1:
             return 0
-        elif  self.ship.rum - self.ship.previous_rum < -1:
+        elif self.ship.rum - self.ship.previous_rum < -1:
             return -1
         else:
             return 1
