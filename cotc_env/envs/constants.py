@@ -2,9 +2,9 @@
 MAX_TURN = 200
 
 # items on map
-MIN_MINES = 2
+MIN_MINES = 5
 MAX_MINES = 10
-MIN_RUMS = 2
+MIN_RUMS = 5
 MAX_RUMS = 10
 
 # rum barrels content

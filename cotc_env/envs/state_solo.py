@@ -166,11 +166,11 @@ class StateSolo:
         elif self.ship.rum == 0:
             return -100
         elif self.ship.rum - self.ship.previous_rum == -1:
-            return 0
+            return 0 + self.ship.speed / 20
         elif self.ship.rum - self.ship.previous_rum < -1:
-            return -1
+            return -1 + self.ship.speed / 20
         else:
-            return 1
+            return 1 + self.ship.speed / 20
 
     def show(self):
         print(self.ship.to_string())
