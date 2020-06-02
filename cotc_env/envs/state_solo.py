@@ -161,16 +161,19 @@ class StateSolo:
         return self.turn == MAX_TURN or self.ship.rum == 0
 
     def get_reward(self):
-        if self.turn == MAX_TURN and self.ship.rum > 0:
-            return 100 + self.ship.rum
-        elif self.ship.rum == 0:
-            return -100
-        elif self.ship.rum - self.ship.previous_rum == -1:
-            return 0 + self.ship.speed / 20
+        # if self.turn == MAX_TURN and self.ship.rum > 0:
+        #     return 100 + self.ship.rum
+        # elif self.ship.rum == 0:
+        #     return -100
+        toto = 0
+        if self.ship.speed > 0:
+            toto = 0.001
+        if self.ship.rum - self.ship.previous_rum == -1:
+            return 0 + toto
         elif self.ship.rum - self.ship.previous_rum < -1:
-            return -1 + self.ship.speed / 20
+            return -1 + toto
         else:
-            return 1 + self.ship.speed / 20
+            return 1 + toto
 
     def show(self):
         print(self.ship.to_string())
