@@ -167,7 +167,7 @@ class StateSolo:
         #     return -100
         toto = 0
         if self.ship.speed > 0:
-            toto = 0.001
+            toto = 0.01
         if self.ship.rum - self.ship.previous_rum == -1:
             return 0 + toto
         elif self.ship.rum - self.ship.previous_rum < -1:
