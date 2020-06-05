@@ -64,7 +64,7 @@ class StateSolo:
         self.map[x][y][channel] = 1
 
     def _clear_map_value(self, x, y, channel):
-        self.map[x][y][channel] = 0
+        self.map[x][y][channel] = EMPTY_VALUE
 
     def _place_ship(self):
         for cell in self.ship.get_cells():
@@ -219,16 +219,14 @@ class StateSolo:
             if y % 2 == 1:
                 s += " "
             for x in range(MAP_WIDTH):
-                for channel in [SHIP_CHANNEL, RUM_CHANNEL, MINE_CHANNEL]:
-                    if self.map[x][y][channel]:
-                        if channel == RUM_CHANNEL:
-                            s += "r "
-                        elif channel == RUM_CHANNEL:
-                            s += "m "
-                        else:
-                            s += "b "
-                    else:
-                        s += ". "
+                if self.map[x][y][RUM_CHANNEL]:
+                    s += "r "
+                elif self.map[x][y][MINE_CHANNEL]:
+                    s += "m "
+                elif self.map[x][y][SHIP_CHANNEL]:
+                    s += "b "
+                else:
+                    s += ". "
             print(s)
         print()
 
