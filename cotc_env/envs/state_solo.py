@@ -208,21 +208,27 @@ class StateSolo:
         else:
             return 1.0 + toto
 
-    def show(self):  # todo, not channel compatible
+    def show(self):
+        """
+        Note, data is store as [x][y], to print line by line x and y must be flipped.
+        :return:
+        """
         print(self.ship.to_string())
         for y in range(MAP_HEIGHT):
             s = ""
             if y % 2 == 1:
                 s += " "
             for x in range(MAP_WIDTH):
-                if self.map[x][y] == EMPTY_VALUE:
-                    s += ". "
-                elif self.map[x][y] == RUM_VALUE:
-                    s += "r "
-                elif self.map[x][y] == MINE_VALUE:
-                    s += "m "
-                else:
-                    s += "b "
+                for channel in [SHIP_CHANNEL, RUM_CHANNEL, MINE_CHANNEL]:
+                    if self.map[x][y][channel]:
+                        if channel == RUM_CHANNEL:
+                            s += "r "
+                        elif channel == RUM_CHANNEL:
+                            s += "m "
+                        else:
+                            s += "b "
+                    else:
+                        s += ". "
             print(s)
         print()
 
