@@ -30,27 +30,30 @@ class StateSolo:
             for y in range(MAP_HEIGHT):
                 self.map[-1].append([EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE])
 
-    def _set_map_value_cell(self, cell, value):
+    def _set_map_value_cell(self, cell, channel):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
         if not cell.is_in_map():
-            if value == SHIP_VALUE:
+            if channel == SHIP_CHANNEL:
                 pass
             else:
                 raise ValueError(
                     "Trying to add an out of map cell to the map:",
                     cell.q,
                     cell.r,
-                    value,
+                    channel,
                 )
         else:
-            self._set_map_value(cell.q, cell.r, value)
+            self._set_map_value(cell.q, cell.r, channel)
 
-    def _set_map_value(self, x, y, value):
-        self.map[x][y] = value
+    def _set_map_value(self, x, y, channel):
+        self.map[x][y][channel] = 1
+
+    def _clear_map_value(self, x, y, channel):
+        self.map[x][y][channel] = 0
 
     def _place_ship(self):
         for cell in self.ship.get_cells():
-            self._set_map_value_cell(cell, SHIP_VALUE)
+            self._set_map_value_cell(cell, SHIP_CHANNEL)
 
     def _generate_initial_mines(self):
         self.mines = set()
