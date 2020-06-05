@@ -144,7 +144,7 @@ class StateSolo:
         if action in [SLOWER, FASTER]:
             self.ship.apply_action(action)
 
-        if self.ship.speed == 1:
+        if self.ship.speed >= 1:
             if not self.forward_collision():
                 self.ship.move_forward()
                 self.collect()
