@@ -20,6 +20,9 @@ RUM_VALUE = -1
 EMPTY_VALUE = 0
 MINE_VALUE = 1
 SHIP_VALUE = 2
+SHIP_CHANNEL = 0
+RUM_CHANNEL = 1
+MINE_CHANNEL = 2
 
 oddr_directions = [
     [[+1, 0], [0, -1], [-1, -1], [-1, 0], [-1, +1], [0, +1]],
