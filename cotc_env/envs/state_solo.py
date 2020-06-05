@@ -28,7 +28,7 @@ class StateSolo:
         for x in range(MAP_WIDTH):
             self.map.append([])
             for y in range(MAP_HEIGHT):
-                self.map[-1].append(EMPTY_VALUE)
+                self.map[-1].append([EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE])
 
     def _set_map_value_cell(self, cell, value):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
