@@ -199,14 +199,14 @@ class StateSolo:
         #     return -100
         toto = 0.0
         if self.ship.speed > 0:
-            toto = 0.01
-        toto += float(self.turn) / 1000.0
+            toto = 0.02
+        toto += 1. / 200.0
         if self.ship.rum - self.ship.previous_rum == -1:
             return 0.0 + toto
         elif self.ship.rum - self.ship.previous_rum < -1:
-            return -1.0 + toto
+            return -4.0 + toto
         else:
-            return 1.0 + toto
+            return 4.0 + toto
 
     def show(self):
         """
