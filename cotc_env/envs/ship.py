@@ -6,7 +6,6 @@ from cotc_env.envs.utils import get_opposite_cap
 
 
 class Ship:
-
     def __init__(self, cell=None, cap=None):
         self.previous_rum = SHIP_MAX_RUM
         self.rum = SHIP_MAX_RUM
@@ -28,7 +27,7 @@ class Ship:
             y=self.center.r,
             speed=self.speed,
             cap=self.cap,
-            rum=self.rum
+            rum=self.rum,
         )
 
     def save_rum(self):
@@ -43,7 +42,7 @@ class Ship:
         elif action == FASTER:
             self.speed = min(MAX_SPEED, self.speed + 1)
         else:
-            raise ValueError('Order {} not related to speed'.format(action))
+            raise ValueError("Order {} not related to speed".format(action))
 
     def stop(self):
         self.speed = MIN_SPEED

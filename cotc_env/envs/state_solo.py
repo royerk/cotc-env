@@ -6,7 +6,6 @@ from cotc_env.envs.constants import *
 
 
 class StateSolo:
-
     def __init__(self):
         self.seed = datetime.datetime.now()
         random.seed(self.seed)
@@ -37,7 +36,12 @@ class StateSolo:
             if value == SHIP_VALUE:
                 pass
             else:
-                raise ValueError("Trying to add an out of map cell to the map:", cell.q, cell.r, value)
+                raise ValueError(
+                    "Trying to add an out of map cell to the map:",
+                    cell.q,
+                    cell.r,
+                    value,
+                )
         else:
             self._set_map_value(cell.q, cell.r, value)
 
@@ -55,8 +59,7 @@ class StateSolo:
             x = randint(1, MAP_WIDTH - 2)
             y = randint(1, int(MAP_HEIGHT / 2))
 
-            if self._is_free_of_ship(x, y) \
-                    and self._is_free_of_mine(x, y):
+            if self._is_free_of_ship(x, y) and self._is_free_of_mine(x, y):
                 if y != MAP_HEIGHT - 1 - y:
                     self.mines.add((x, MAP_HEIGHT - 1 - y))
                 self.mines.add((x, y))
@@ -68,9 +71,11 @@ class StateSolo:
             x = randint(1, MAP_WIDTH - 2)
             y = randint(1, int(MAP_HEIGHT / 2))
 
-            if self._is_free_of_ship(x, y) \
-                    and self._is_free_of_mine(x, y)\
-                    and self._is_free_of_rum(x, y):
+            if (
+                self._is_free_of_ship(x, y)
+                and self._is_free_of_mine(x, y)
+                and self._is_free_of_rum(x, y)
+            ):
                 if y != MAP_HEIGHT - 1 - y:
                     self.rums[(x, MAP_HEIGHT - 1 - y)] = RUM_MAX
                 self.rums[(x, y)] = RUM_MAX
@@ -89,13 +94,14 @@ class StateSolo:
 
     def get_observation(self):
         return {
-            'self': {
-                'rum': self.ship.rum,
-                'x': self.ship.center.q,
-                'y': self.ship.center.r,
-                'cap': self.ship.cap,
-                'speed': self.ship.speed},
-            'map': self.map
+            "self": {
+                "rum": self.ship.rum,
+                "x": self.ship.center.q,
+                "y": self.ship.center.r,
+                "cap": self.ship.cap,
+                "speed": self.ship.speed,
+            },
+            "map": self.map,
         }
 
     def _update_map(self):
@@ -165,36 +171,34 @@ class StateSolo:
         #     return 100 + self.ship.rum
         # elif self.ship.rum == 0:
         #     return -100
-        toto = 0.
+        toto = 0.0
         if self.ship.speed > 0:
             toto = 0.01
-        toto += float(self.turn)/1000.
+        toto += float(self.turn) / 1000.0
         if self.ship.rum - self.ship.previous_rum == -1:
-            return 0. + toto
+            return 0.0 + toto
         elif self.ship.rum - self.ship.previous_rum < -1:
-            return -1. + toto
+            return -1.0 + toto
         else:
-            return 1. + toto
+            return 1.0 + toto
 
     def show(self):
         print(self.ship.to_string())
         for y in range(MAP_HEIGHT):
-            s = ''
+            s = ""
             if y % 2 == 1:
-                s += ' '
+                s += " "
             for x in range(MAP_WIDTH):
                 if self.map[x][y] == EMPTY_VALUE:
-                    s += '. '
+                    s += ". "
                 elif self.map[x][y] == RUM_VALUE:
-                    s += 'r '
+                    s += "r "
                 elif self.map[x][y] == MINE_VALUE:
-                    s += 'm '
+                    s += "m "
                 else:
-                    s += 'b '
+                    s += "b "
             print(s)
         print()
 
     def get_info(self):
-        return {
-            'seed': self.seed
-        }
+        return {"seed": self.seed}
