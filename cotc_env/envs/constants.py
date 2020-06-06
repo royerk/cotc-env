@@ -1,9 +1,9 @@
 # game
-MAX_TURN = 200
+MAX_TURN = 100
 
 # items on map
-MIN_MINES = 5
-MAX_MINES = 10
+MIN_MINES = 0
+MAX_MINES = 0
 MIN_RUMS = 10
 MAX_RUMS = 26
 
