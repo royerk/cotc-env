@@ -1,11 +1,11 @@
 # game
-MAX_TURN = 200
+MAX_TURN = 100
 
 # items on map
-MIN_MINES = 5
-MAX_MINES = 10
-MIN_RUMS = 5
-MAX_RUMS = 10
+MIN_MINES = 0
+MAX_MINES = 0
+MIN_RUMS = 10
+MAX_RUMS = 26
 
 # rum barrels content
 RUM_MIN = 20
@@ -20,6 +20,9 @@ RUM_VALUE = -1
 EMPTY_VALUE = 0
 MINE_VALUE = 1
 SHIP_VALUE = 2
+SHIP_CHANNEL = 0
+RUM_CHANNEL = 1
+MINE_CHANNEL = 2
 
 oddr_directions = [
     [[+1, 0], [0, -1], [-1, -1], [-1, 0], [-1, +1], [0, +1]],

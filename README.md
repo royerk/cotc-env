@@ -13,3 +13,8 @@
     * plenty of constants to set too
 * add link to cg
 * [Hexagonal grid](https://www.redblobgames.com/grids/hexagons/)
+
+# Optimization
+
+* use map with numpy
+* use bit wise operation to collect rum/mine
