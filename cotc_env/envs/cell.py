@@ -41,4 +41,4 @@ class Cell:
 
     def is_in_map(self):
         # return 0 <= self.q < MAP_WIDTH and 0 <= self.r < MAP_HEIGHT
-        return 0 <= self.r < MAP_HEIGHT and -r // 2 <= self.q < MAP_WIDTH - r // 2
+        return 0 <= self.r < MAP_HEIGHT and -self.r // 2 <= self.q < MAP_WIDTH - self.r // 2

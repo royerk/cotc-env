@@ -31,3 +31,14 @@ def test_is_in_map():
 
     cell = Cell(0, -1)
     assert cell.is_in_map() == False
+
+
+def test_get_port():
+    cell = Cell(0, 0)
+    port_cell == cell.get_port_cell(2)
+    assert cell.q - 1 == port_cell.q and cell.r + 1 == port_cell.r
+
+def test_get_star():
+    cell = Cell(0, 0)
+    star_cell == cell.get_star_cell(5)
+    assert cell.q - 1 == port_cell.q and cell.r == port_cell.r
