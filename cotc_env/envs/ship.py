@@ -13,7 +13,9 @@ class Ship:
             raise ValueError("Ship init need neither or both cell and cap.")
         elif cell is None and cap is None:
             self.cap = randint(0, 5)
-            self.center = Cell(randint(1, MAP_WIDTH - 2), randint(1, MAP_HEIGHT - 2))
+            r = randint(1, MAP_HEIGHT - 2)
+            q = randint(-r//2 + 1, MAP_WIDTH - r // 2 - 2)
+            self.center = Cell(q, r) 
         else:
             self.center = cell
             self.cap = cap
