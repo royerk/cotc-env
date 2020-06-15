@@ -4,8 +4,7 @@ from random import randint
 
 from cotc_env.envs.constants import *
 from cotc_env.envs.ship import Ship
-from cotc_env.envs.utils import (get_2d_from_axial, get_mirror_axial,
-                                 get_random_axial)
+from cotc_env.envs.utils import get_2d_from_axial, get_mirror_axial, get_random_axial
 
 
 class StateSolo:
@@ -84,8 +83,13 @@ class StateSolo:
         self.initial_mine_count = randint(MIN_MINES, MAX_MINES)
         while len(self.mines) < self.initial_mine_count:
             q, r = get_random_axial()
-
-            if self._is_free_of_ship(q, r) and self._is_free_of_mine(q, r):
+            mirror_q, mirror_r = get_mirror_axial(q, r)
+            if (
+                self._is_free_of_ship(q, r)
+                and self._is_free_of_ship(mirror_q, mirror_r)
+                and self._is_free_of_mine(q, r)
+                and self._is_free_of_mine(mirror_q, mirror_r)
+            ):
                 if r != MAP_HEIGHT - 1 - r:
                     self.mines.add(get_mirror_axial(q, r))
                 self.mines.add((q, r))
@@ -95,14 +99,17 @@ class StateSolo:
         self.initial_rum_count = randint(MIN_RUMS, MAX_RUMS)
         while len(self.rums) < self.initial_rum_count:
             q, r = get_random_axial()
-
+            mirror_q, mirror_r = get_mirror_axial(q, r)
             if (
                 self._is_free_of_ship(q, r)
+                and self._is_free_of_ship(mirror_q, mirror_r)
                 and self._is_free_of_mine(q, r)
+                and self._is_free_of_mine(mirror_q, mirror_r)
                 and self._is_free_of_rum(q, r)
+                and self._is_free_of_rum(mirror_q, mirror_r)
             ):
                 if r != MAP_HEIGHT - 1 - r:
-                    self.rums[get_mirror_axial(q, r)] = RUM_MAX
+                    self.rums[(mirror_q, mirror_r)] = RUM_MAX
                 self.rums[(q, r)] = RUM_MAX
 
     def _is_free_of_ship(self, x, y):
