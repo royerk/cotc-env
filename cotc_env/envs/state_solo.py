@@ -3,7 +3,7 @@ import random
 from random import randint
 from cotc_env.envs.ship import Ship
 from cotc_env.envs.constants import *
-from cotc_env.envs.utils import get_random_axial, get_2d_from_axial
+from cotc_env.envs.utils import get_random_axial, get_2d_from_axial, get_mirror_axial
 
 
 class StateSolo:
@@ -63,6 +63,7 @@ class StateSolo:
 
     def _set_map_value(self, q, r, channel):
         x, y = get_2d_from_axial(q, r)
+        print(q, r, '->', x, y)
         self.map[x][y][channel] = 1
 
     def _clear_map_value(self, q, r, channel):
@@ -85,7 +86,7 @@ class StateSolo:
 
             if self._is_free_of_ship(q, r) and self._is_free_of_mine(q, r):
                 if r != MAP_HEIGHT - 1 - r:
-                    self.mines.add((q, MAP_HEIGHT - 1 - r))
+                    self.mines.add(get_mirror_axial(q, r))
                 self.mines.add((q, r))
 
     def _generate_initial_rums(self):
@@ -100,7 +101,7 @@ class StateSolo:
                 and self._is_free_of_rum(q, r)
             ):
                 if r != MAP_HEIGHT - 1 - r:
-                    self.rums[(q, MAP_HEIGHT - 1 - r)] = RUM_MAX
+                    self.rums[get_mirror_axial(q, r)] = RUM_MAX
                 self.rums[(q, r)] = RUM_MAX
 
     def _is_free_of_ship(self, x, y):
