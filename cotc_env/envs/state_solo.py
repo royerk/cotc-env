@@ -65,7 +65,6 @@ class StateSolo:
 
     def _set_map_value(self, q, r, channel):
         x, y = get_2d_from_axial(q, r)
-        print(q, r, "->", x, y)
         self.map[x][y][channel] = 1
 
     def _clear_map_value(self, q, r, channel):
