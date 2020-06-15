@@ -3,6 +3,7 @@ import random
 from random import randint
 from cotc_env.envs.ship import Ship
 from cotc_env.envs.constants import *
+from cotc_env.envs.utils import get_random_axial, get_2d_from_axial
 
 
 class StateSolo:
@@ -60,10 +61,12 @@ class StateSolo:
         else:
             self._clear_map_value(cell.q, cell.r, channel)
 
-    def _set_map_value(self, x, y, channel):
+    def _set_map_value(self, q, r, channel):
+        x, y = get_2d_from_axial(q, r)
         self.map[x][y][channel] = 1
 
-    def _clear_map_value(self, x, y, channel):
+    def _clear_map_value(self, q, r, channel):
+        x, y = get_2d_from_axial(q, r)
         self.map[x][y][channel] = EMPTY_VALUE
 
     def _place_ship(self):
@@ -78,29 +81,27 @@ class StateSolo:
         self.mines = set()
         self.initial_mine_count = randint(MIN_MINES, MAX_MINES)
         while len(self.mines) < self.initial_mine_count:
-            x = randint(1, MAP_WIDTH - 2)
-            y = randint(1, int(MAP_HEIGHT / 2))
+            q, r = get_random_axial()
 
-            if self._is_free_of_ship(x, y) and self._is_free_of_mine(x, y):
-                if y != MAP_HEIGHT - 1 - y:
-                    self.mines.add((x, MAP_HEIGHT - 1 - y))
-                self.mines.add((x, y))
+            if self._is_free_of_ship(q, r) and self._is_free_of_mine(q, r):
+                if r != MAP_HEIGHT - 1 - r:
+                    self.mines.add((q, MAP_HEIGHT - 1 - r))
+                self.mines.add((q, r))
 
     def _generate_initial_rums(self):
         self.rums = {}
         self.initial_rum_count = randint(MIN_RUMS, MAX_RUMS)
         while len(self.rums) < self.initial_rum_count:
-            x = randint(1, MAP_WIDTH - 2)
-            y = randint(1, int(MAP_HEIGHT / 2))
+            q, r = get_random_axial()
 
             if (
-                self._is_free_of_ship(x, y)
-                and self._is_free_of_mine(x, y)
-                and self._is_free_of_rum(x, y)
+                self._is_free_of_ship(q, r)
+                and self._is_free_of_mine(q, r)
+                and self._is_free_of_rum(q, r)
             ):
-                if y != MAP_HEIGHT - 1 - y:
-                    self.rums[(x, MAP_HEIGHT - 1 - y)] = RUM_MAX
-                self.rums[(x, y)] = RUM_MAX
+                if r != MAP_HEIGHT - 1 - r:
+                    self.rums[(q, MAP_HEIGHT - 1 - r)] = RUM_MAX
+                self.rums[(q, r)] = RUM_MAX
 
     def _is_free_of_ship(self, x, y):
         for cell in self.ship.get_cells():
@@ -199,14 +200,14 @@ class StateSolo:
         #     return -100
         toto = 0.0
         if self.ship.speed > 0:
-            toto = 0.1
+            toto = 0.05
         toto += float(self.turn) / 500.0
         if self.ship.rum - self.ship.previous_rum == -1:
             return 0.0 + toto
         elif self.ship.rum - self.ship.previous_rum < -1:
             return -1.0 + toto
         else:
-            return 1.0 + toto
+            return 5.0 + toto
 
     def show(self):
         """
