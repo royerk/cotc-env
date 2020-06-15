@@ -3,8 +3,12 @@ from cotc_env.envs.constants import oddr_directions
 
 
 axial_directions = [
-    (+1, 0), (+1, -1), (0, -1), 
-    (-1, 0), (-1, +1), (0, +1), 
+    (+1, 0),
+    (+1, -1),
+    (0, -1),
+    (-1, 0),
+    (-1, +1),
+    (0, +1),
 ]
 
 # function hex_direction(direction):
@@ -41,4 +45,7 @@ class Cell:
 
     def is_in_map(self):
         # return 0 <= self.q < MAP_WIDTH and 0 <= self.r < MAP_HEIGHT
-        return 0 <= self.r < MAP_HEIGHT and -self.r // 2 <= self.q < MAP_WIDTH - self.r // 2
+        return (
+            0 <= self.r < MAP_HEIGHT
+            and -self.r // 2 <= self.q < MAP_WIDTH - self.r // 2
+        )

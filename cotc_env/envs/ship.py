@@ -14,7 +14,7 @@ class Ship:
         elif cell is None and cap is None:
             self.cap = randint(0, 5)
             q, r = get_random_axial()
-            self.center = Cell(q, r) 
+            self.center = Cell(q, r)
         else:
             self.center = cell
             self.cap = cap

@@ -9,7 +9,7 @@ def get_opposite_cap(cap):
 
 def get_random_axial():
     r = randint(1, MAP_HEIGHT - 2)
-    q = randint(-r//2 + 1, MAP_WIDTH - r // 2 - 2)
+    q = randint(-r // 2 + 1, MAP_WIDTH - r // 2 - 2)
     return q, r
 
 

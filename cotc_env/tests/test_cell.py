@@ -38,6 +38,7 @@ def test_get_port():
     port_cell = cell.get_port_cell(2)
     assert cell.q - 1 == port_cell.q and cell.r + 1 == port_cell.r
 
+
 def test_get_star():
     cell = Cell(0, 0)
     star_cell = cell.get_star_cell(5)
