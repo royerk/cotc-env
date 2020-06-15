@@ -1,7 +1,6 @@
 from cotc_env.envs.constants import *
 from cotc_env.envs.constants import oddr_directions
 
-
 axial_directions = [
     (+1, 0),
     (+1, -1),
