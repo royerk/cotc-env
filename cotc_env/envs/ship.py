@@ -2,7 +2,7 @@ from random import randint
 
 from cotc_env.envs.cell import Cell
 from cotc_env.envs.constants import *
-from cotc_env.envs.utils import get_opposite_cap
+from cotc_env.envs.utils import get_opposite_cap, get_random_axial
 
 
 class Ship:
@@ -13,7 +13,8 @@ class Ship:
             raise ValueError("Ship init need neither or both cell and cap.")
         elif cell is None and cap is None:
             self.cap = randint(0, 5)
-            self.center = Cell(randint(1, MAP_WIDTH - 2), randint(1, MAP_HEIGHT - 2))
+            q, r = get_random_axial()
+            self.center = Cell(q, r)
         else:
             self.center = cell
             self.cap = cap
