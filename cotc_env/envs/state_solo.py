@@ -76,11 +76,11 @@ class StateSolo:
             self._clear_map_value(cell.q, cell.r, channel)
 
     def _set_map_value(self, q, r, channel):
-        x, y = get_2d_from_axial(q, r)
+        x, y = get_2d_from_axial(q + MAP_BORDER, r + MAP_BORDER)
         self.map[x][y][channel] = 1
 
     def _clear_map_value(self, q, r, channel):
-        x, y = get_2d_from_axial(q, r)
+        x, y = get_2d_from_axial(q + MAP_BORDER, r + MAP_BORDER)
         self.map[x][y][channel] = EMPTY_VALUE
 
     def _place_ship(self):
@@ -229,17 +229,19 @@ class StateSolo:
         :return:
         """
         print(self.ship.to_string())
-        for y in range(MAP_HEIGHT):
+        for y in range(MAP_HEIGHT + MAP_BORDER * 2):
             s = ""
             if y % 2 == 1:
                 s += " "
-            for x in range(MAP_WIDTH):
+            for x in range(MAP_WIDTH + MAP_BORDER * 2):
                 if self.map[x][y][RUM_CHANNEL]:
                     s += "r "
                 elif self.map[x][y][MINE_CHANNEL]:
                     s += "m "
                 elif self.map[x][y][SHIP_CHANNEL]:
                     s += "b "
+                elif self.map[x][y][BORDER_CHANNEL]:
+                    s += "  "
                 else:
                     s += ". "
             print(s)
