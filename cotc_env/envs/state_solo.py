@@ -27,10 +27,23 @@ class StateSolo:
     def _reset_map(self):
         """Map first index is x, second is y."""
         self.map = []
-        for x in range(MAP_WIDTH):
+        for x in range(MAP_WIDTH + MAP_BORDER * 2):
             self.map.append([])
-            for y in range(MAP_HEIGHT):
-                self.map[-1].append([EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE])
+            for y in range(MAP_HEIGHT + MAP_BORDER * 2):
+                if MAP_BORDER > 0:
+                    border_value = EMPTY_VALUE
+                    if (
+                        x < MAP_BORDER
+                        or x >= MAP_WIDTH + MAP_BORDER
+                        or y < MAP_BORDER
+                        or y >= MAP_HEIGHT + MAP_BORDER
+                    ):
+                        border_value = 1
+                    self.map[-1].append(
+                        [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, border_value]
+                    )
+                else:
+                    self.map[-1].append([EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE])
 
     def _set_map_value_cell(self, cell, channel):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
