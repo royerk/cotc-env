@@ -76,11 +76,11 @@ class StateSolo:
             self._clear_map_value(cell.q, cell.r, channel)
 
     def _set_map_value(self, q, r, channel):
-        x, y = get_2d_from_axial(q + MAP_BORDER, r + MAP_BORDER)
+        x, y = get_2d_from_axial(q, r)
         self.map[x][y][channel] = 1
 
     def _clear_map_value(self, q, r, channel):
-        x, y = get_2d_from_axial(q + MAP_BORDER, r + MAP_BORDER)
+        x, y = get_2d_from_axial(q, r)
         self.map[x][y][channel] = EMPTY_VALUE
 
     def _place_ship(self):
