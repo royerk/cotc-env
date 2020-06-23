@@ -23,6 +23,17 @@ SHIP_VALUE = 2
 SHIP_CHANNEL = 0
 RUM_CHANNEL = 1
 MINE_CHANNEL = 2
+BORDER_CHANNEL = 3
+
+"""
+Map border:
+If > 0:
+* increase width and heigh by MAP_BORDER * 2
+* create a channel where the cells outside of the map have a value of 1, 0 otherwise
+The goal is to allow convolutions with padding "same" to see the borders of the map.
+With this, the Agent preprocessing function needs to be updated: bigger and additionnal channel.
+"""
+MAP_BORDER = 3
 
 oddr_directions = [
     [[+1, 0], [0, -1], [-1, -1], [-1, 0], [-1, +1], [0, +1]],

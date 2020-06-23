@@ -27,14 +27,27 @@ class StateSolo:
     def _reset_map(self):
         """Map first index is x, second is y."""
         self.map = []
-        for x in range(MAP_WIDTH):
+        for x in range(MAP_WIDTH + MAP_BORDER * 2):
             self.map.append([])
-            for y in range(MAP_HEIGHT):
-                self.map[-1].append([EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE])
+            for y in range(MAP_HEIGHT + MAP_BORDER * 2):
+                if MAP_BORDER > 0:
+                    border_value = EMPTY_VALUE
+                    if (
+                        x < MAP_BORDER
+                        or x >= MAP_WIDTH + MAP_BORDER
+                        or y < MAP_BORDER
+                        or y >= MAP_HEIGHT + MAP_BORDER
+                    ):
+                        border_value = 1
+                    self.map[-1].append(
+                        [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, border_value]
+                    )
+                else:
+                    self.map[-1].append([EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE])
 
     def _set_map_value_cell(self, cell, channel):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
-        if not cell.is_in_map():
+        if MAP_BORDER == 0 and not cell.is_in_map():
             if channel == SHIP_CHANNEL:
                 pass
             else:
@@ -49,7 +62,7 @@ class StateSolo:
 
     def _clear_map_value_cell(self, cell, channel):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
-        if not cell.is_in_map():
+        if MAP_BORDER == 0 and not cell.is_in_map():
             if channel == SHIP_CHANNEL:
                 pass
             else:
@@ -216,17 +229,19 @@ class StateSolo:
         :return:
         """
         print(self.ship.to_string())
-        for y in range(MAP_HEIGHT):
+        for y in range(MAP_HEIGHT + MAP_BORDER * 2):
             s = ""
             if y % 2 == 1:
                 s += " "
-            for x in range(MAP_WIDTH):
+            for x in range(MAP_WIDTH + MAP_BORDER * 2):
                 if self.map[x][y][RUM_CHANNEL]:
                     s += "r "
                 elif self.map[x][y][MINE_CHANNEL]:
                     s += "m "
                 elif self.map[x][y][SHIP_CHANNEL]:
                     s += "b "
+                elif self.map[x][y][BORDER_CHANNEL]:
+                    s += "  "
                 else:
                     s += ". "
             print(s)
