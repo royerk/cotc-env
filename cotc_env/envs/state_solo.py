@@ -47,7 +47,7 @@ class StateSolo:
 
     def _set_map_value_cell(self, cell, channel):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
-        if not cell.is_in_map():
+        if MAP_BORDER == 0 and not cell.is_in_map():
             if channel == SHIP_CHANNEL:
                 pass
             else:
@@ -62,7 +62,7 @@ class StateSolo:
 
     def _clear_map_value_cell(self, cell, channel):
         """Can ignore out of map cell only for ships, otherwise should assign or fail to do so."""
-        if not cell.is_in_map():
+        if MAP_BORDER == 0 and not cell.is_in_map():
             if channel == SHIP_CHANNEL:
                 pass
             else:
