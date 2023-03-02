@@ -4,7 +4,8 @@ from random import randint
 
 from cotc_env.envs.constants import *
 from cotc_env.envs.ship import Ship
-from cotc_env.envs.utils import get_2d_from_axial, get_mirror_axial, get_random_axial
+from cotc_env.envs.utils import (get_2d_from_axial, get_mirror_axial,
+                                 get_random_axial)
 
 
 class StateSolo:

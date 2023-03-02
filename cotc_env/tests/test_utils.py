@@ -1,5 +1,5 @@
-from cotc_env.envs.utils import *
 from cotc_env.envs.constants import MAP_BORDER
+from cotc_env.envs.utils import *
 
 
 def test_get_opposite_cap():

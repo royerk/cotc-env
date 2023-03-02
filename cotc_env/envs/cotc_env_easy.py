@@ -1,10 +1,9 @@
 import time
 
 import gym
-from gym import spaces
-
 from cotc_env.envs.constants import *
 from cotc_env.envs.state_solo import StateSolo
+from gym import spaces
 
 
 class CotcEnvEasySolo(gym.Env):

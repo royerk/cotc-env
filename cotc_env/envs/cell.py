@@ -43,4 +43,9 @@ class Cell:
         return Cell(self.q + dq, self.r + dr)
 
     def is_in_map(self):
-        return 0 <= self.r < MAP_HEIGHT and -(self.r // 2) - ((self.r)%2) <= self.q < MAP_WIDTH - (self.r // 2) - self.r%2
+        return (
+            0 <= self.r < MAP_HEIGHT
+            and -(self.r // 2) - ((self.r) % 2)
+            <= self.q
+            < MAP_WIDTH - (self.r // 2) - self.r % 2
+        )

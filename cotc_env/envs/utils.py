@@ -22,7 +22,7 @@ def get_random_offset():
 
 def get_2d_from_axial(q, r):
     y = r + MAP_BORDER
-    x = q + (r // 2) + MAP_BORDER + (y+1)%2
+    x = q + (r // 2) + MAP_BORDER + (y + 1) % 2
     return x, y
 
 
